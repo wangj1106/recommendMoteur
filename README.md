@@ -247,7 +247,7 @@ val Array(zkQuorum, groupId, topics, numThreads) = args
 }
 ```
 
-详情请见《烂豆瓣API说明书》https://github.com/wangj1106/brokendouban/blob/final/README.md。
+详情请见《烂豆瓣API说明书》https://github.com/wangj1106/brokendouban/blob/final/README.md
 
 2.Web App
 使用ASP.NET MVC构建web应用，利用bootstrap、angularJS渲染页面并与后台交互。
