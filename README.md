@@ -45,7 +45,7 @@ MLlib是Spark中用于机器学习的强大工具包。协同过滤推荐是MLli
 （1）确定最佳的协同过滤模型参数
 使用ALS算法求解矩阵分解时，需要设定3个参数：矩阵分解的秩rank、正则系数alpha和迭代次数numIters。为了确定最佳的模型参数，将数据集划分为3个部分：训练集、验证集和测试集。
 训练集是用来训练多个协同过滤模型，验证集从中选择出均方误差最小的模型，测试集用来验证最佳模型的预测准确率。
-步骤1　首先读取电影和评分的数据。
+<i class="icon-adjust"></i>步骤1　首先读取电影和评分的数据。
 
 ```scala
 val sqlContext = new SQLContext(sc)
@@ -65,7 +65,7 @@ val ratings = ratingRDD.map(parseRating)
 
 ```
 
-步骤2　利用timestamp将数据集分为训练集。
+<i class="icon-adjust"></i>步骤2　利用timestamp将数据集分为训练集。
 
 ```scala
 val splits=ratings.randomSplit(Array(0.8,0.2), 0L)
@@ -73,7 +73,7 @@ val trainingSet=splits(0).cache()
 val testSet=splits(1).cache()
 ```
 
-步骤3　定义函数计算均方误差RMSE。
+<i class="icon-adjust"></i>步骤3　定义函数计算均方误差RMSE。
 
 ```scala
 Def computeRmse(model: MatrixFactorizationModel, data: RDD[Rating]) : Double = {
@@ -85,7 +85,7 @@ math.sqrt(predictionsAndRatings.map(x => (x._1 - x._2) * (x._1 - x._2)).mean())
   }
 ```
 
-步骤4　使用不同的参数训练协同过滤模型，并且选择出RMSE最小的模型（为了简单起见，只从一个较小的参数范围选择：矩阵分解的秩从8~12中选择，正则系数从1.0~10.0中选择，迭代次数从10~20中选择，共计8个模型。读者可以根据实际需要调整选择范围）。
+<i class="icon-adjust"></i>步骤4　使用不同的参数训练协同过滤模型，并且选择出RMSE最小的模型（为了简单起见，只从一个较小的参数范围选择：矩阵分解的秩从8~12中选择，正则系数从1.0~10.0中选择，迭代次数从10~20中选择，共计8个模型。读者可以根据实际需要调整选择范围）。
 
 ```scala
 val ranks = List(8, 12)
@@ -114,7 +114,7 @@ println("The best model was trained with rank = " + bestRank +
 ", and its RMSE on the test set is " + testRmse + ".")
 ```
 
-步骤5　同时，还可以对比使用协同过滤算法和不使用协同过滤（例如，使用平均分来作为预测结果）能得到多大的预测效果提升。
+<i class="icon-adjust"></i>步骤5　同时，还可以对比使用协同过滤算法和不使用协同过滤（例如，使用平均分来作为预测结果）能得到多大的预测效果提升。
 
 ```scala
 val meanR = training.union(validation).map(_.rating).mean
