@@ -6,7 +6,7 @@
 
 ## 项目任务
 | 任务        | 具体任务   |  负责人  | 工作量  |
-| --------   | :-----:  | :----:  |   :----:  |
+| --------   | -----  | ----  |   ----  |
 |    数据集  | 负责完成收集电影、用户以及评分数据集，并对数据进行清洗，建立新的数据结构。建立并维护系统数据库。 |        |  |
 |    推荐引擎  | 负责完成推荐系统，包括基于用户历史数据的离线推荐系统以及收集用户实时行为数据，进行精准的实时推荐。 |        |  |
 |    数据集  | 负责完成基于烂豆瓣各产品，面向开发者的开放接口（API）服务。在这里，开发者可以接入烂豆瓣电影推荐的优质内容，以及基于各种兴趣的用户关系。 |        |  |
@@ -25,7 +25,7 @@
 MLlib是Spark中用于机器学习的强大工具包。协同过滤推荐是MLlib提供的核心功能之一， org.apache.spark.mllib.recommendation中提供了3个用于协同过滤推荐的数据类型，即Rating、ALS和MatrixFactorizationModel。
 
 | 类型        | 解释   |
-| --------   | :-----:  |
+| --------   | -----  |
 | Rating |	Rating对象是一个用户、项目和评分的三元组。 |
 | ALS |	ALS提供了求解带偏置矩阵分解的交替最小二乘算法（Alternating Least Squares，ALS）。 |
 | MatrixFactorizationModel |	ALS求解矩阵分解返回的结果类型。 |
@@ -33,7 +33,7 @@ MLlib是Spark中用于机器学习的强大工具包。协同过滤推荐是MLli
 作为训练结果的MatrixFactorizationModel中提供了多种推荐操作。
 
 | 方法        | 解释   |
-| --------   | :-----:  |
+| --------   | -----  |
 | val productFeatures | 	RDD[（Int，Array[Double]）]：返回矩阵分解得的项目特征。    |
 | val userFeatures |  	RDD[（Int，Array[Double]）]：返回矩阵分解得的用户特征。  |
 | def predict      |	  RDD[Rating]：根据参数中需要预测的用户-项目，返回预测的评分结果。  |
