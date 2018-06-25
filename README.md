@@ -6,7 +6,7 @@
 
 ## 项目任务
 | 任务        | 具体任务   |  负责人  | 工作量  |
-| --------   | :-----  | :----:  |   :----:  |
+| --------   | :-----:  | :----:  |   :----:  |
 |    数据集  | 负责完成收集电影、用户以及评分数据集，并对数据进行清洗，建立新的数据结构。建立并维护系统数据库。 |        |  |
 |    推荐引擎  | 负责完成推荐系统，包括基于用户历史数据的离线推荐系统以及收集用户实时行为数据，进行精准的实时推荐。 |        |  |
 |    数据集  | 负责完成基于烂豆瓣各产品，面向开发者的开放接口（API）服务。在这里，开发者可以接入烂豆瓣电影推荐的优质内容，以及基于各种兴趣的用户关系。 |        |  |
@@ -18,12 +18,14 @@
 
 ## 技术
 
+![avatar](http://p35hkafb9.bkt.clouddn.com/%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84%E5%9B%BE.png)
+
 ### 离线推荐
 1.MLlib的推荐算法工具
 MLlib是Spark中用于机器学习的强大工具包。协同过滤推荐是MLlib提供的核心功能之一， org.apache.spark.mllib.recommendation中提供了3个用于协同过滤推荐的数据类型，即Rating、ALS和MatrixFactorizationModel。
 
 | 类型        | 解释   |
-| --------   | :-----  |
+| --------   | :-----:  |
 | Rating |	Rating对象是一个用户、项目和评分的三元组。 |
 | ALS |	ALS提供了求解带偏置矩阵分解的交替最小二乘算法（Alternating Least Squares，ALS）。 |
 | MatrixFactorizationModel |	ALS求解矩阵分解返回的结果类型。 |
@@ -31,7 +33,7 @@ MLlib是Spark中用于机器学习的强大工具包。协同过滤推荐是MLli
 作为训练结果的MatrixFactorizationModel中提供了多种推荐操作。
 
 | 方法        | 解释   |
-| --------   | :-----  |
+| --------   | :-----:  |
 | val productFeatures | 	RDD[（Int，Array[Double]）]：返回矩阵分解得的项目特征。    |
 | val userFeatures |  	RDD[（Int，Array[Double]）]：返回矩阵分解得的用户特征。  |
 | def predict      |	  RDD[Rating]：根据参数中需要预测的用户-项目，返回预测的评分结果。  |
@@ -135,6 +137,8 @@ import sqlContext.implicits._
 ### 实时推荐
 前期已经完成了推荐系统离线计算部分，主要是根据ALS、Itemcf进行推荐，这种离线的推荐在计算周期内推荐结果不发生改变，从而缺乏一定的个性化效果。个性化推荐则需要用户发生行为，并根据用户实时行为实时为其推送推荐结果。
 
+![avatar](http://p35hkafb9.bkt.clouddn.com/%E5%AE%9E%E6%97%B6%E6%8E%A8%E8%8D%90%E6%9E%B6%E6%9E%84%E5%9B%BE.bmp)
+
 （1）物品相似度计算
 为了真实准确的为用户进行实时推荐，还是要依赖历史数据，需要依赖一套完整的离线推荐系统作为数据支撑。因此需要使用离线计算中的模型，来计算物品之间的相似度。由离线推荐部分可知，用户-电影评分矩阵经过ALS算法分解后，将得到两个矩阵，分别为用户-隐含因子矩阵以及隐含因子-电影矩阵。隐含因子-电影矩阵的每一列就可以看作每部电影的隐含向量，使用余弦相似度计算电影两两之间的相似度，并取与每部电影最相似的K部电影存储到数据库中，作为实时推荐的依据。
 
@@ -228,14 +232,18 @@ val Array(zkQuorum, groupId, topics, numThreads) = args
 ```
 
 ## Web Server
+
 1.推荐系统API服务
+
+![avatar](http://p35hkafb9.bkt.clouddn.com/API%E9%83%A8%E5%88%86%E7%9B%AE%E5%BD%95.bmp)
+
 使用API服务实现前后端分离架构，我们需要首先确定返回的JSON响应结构是统一的，也就是说，每个请求将返回相同结构的JSON响应结构。不妨定义一个相对通用的JSON响应结构，其中包含两部分：元数据与返回值，其中，元数据表示操作是否成功与返回值消息等，返回值对应服务端方法所返回的数据。该JSON响应结构如下：
 
 ```json
 {
-“status”: 0,
-“msg”: “……“，
-“data“: {……}
+    "status": 0,
+    "msg": "……"，
+    "data": {……}
 }
 ```
 
@@ -243,6 +251,8 @@ val Array(zkQuorum, groupId, topics, numThreads) = args
 
 2.Web App
 使用ASP.NET MVC构建web应用，利用bootstrap、angularJS渲染页面并与后台交互。
+
+![avatar](http://p35hkafb9.bkt.clouddn.com/web%E5%BA%94%E7%94%A8%E9%83%A8%E5%88%86%E6%88%AA%E5%9B%BE.bmp)
 
 ## 工具
 Scala、Python、Java
